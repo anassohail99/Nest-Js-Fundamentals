@@ -3,15 +3,12 @@ import { Products } from './products.model';
 
 @Injectable()
 export class ProductsService {
-  products: Products[] = [];
+  private products: Products[] = [];
 
   insertProduct(title: string, description: string, price: number) {
-    const newProduct = new Products(
-      Math.floor(Math.random()).toString(),
-      title,
-      description,
-      price,
-    );
+    const prodID = new Date().toString();
+    const newProduct = new Products(prodID, title, description, price);
     this.products.push(newProduct);
+    return prodID;
   }
 }
