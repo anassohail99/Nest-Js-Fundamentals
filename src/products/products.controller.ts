@@ -5,7 +5,7 @@ import {
   Get,
   Param,
   Patch,
-  Body,
+  Delete,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 
@@ -36,5 +36,23 @@ export class ProductsController {
   @Get(':id')
   getProduct(@Param('id') prodID: string) {
     return this.productsService.getSingleProduct(prodID);
+  }
+
+  // put is used to replace
+  //   patch is used to merge
+  @Patch(':id')
+  updateProduct(
+    @Param('id') prodID: string,
+    @Body('title') prodTitle: string,
+    @Body('description') prodDescription: string,
+    @Body('price') prodPrice: number,
+  ) {
+    this.productsService.updateProduct(
+      prodID,
+      prodTitle,
+      prodDescription,
+      prodPrice,
+    );
+    return null;
   }
 }
